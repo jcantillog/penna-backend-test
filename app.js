@@ -14,8 +14,9 @@ mongoose.connect
     {useNewUrlParser: true}
 );
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// Setting routers
+var indexRouter   = require('./interfaces/http/routes/index');
+var parentsRouter = require('./interfaces/http/routes/parents');
 
 // Setting express app
 var app = express();
@@ -31,7 +32,7 @@ app.use(cors());
 
 // Setting endpoints
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/parents', parentsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
