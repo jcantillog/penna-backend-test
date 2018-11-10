@@ -33,4 +33,24 @@ router.get('/:id', function(req, res, next) {
     }
 });
 
+/* UPDATE parent */
+router.put('/', function(req, res, next) {
+    try {
+        parentsServices.crud.update(req, res, next);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+});
+
+/* DELETE parent */
+router.delete('/', function(req, res, next) {
+    try {
+        parentsServices.crud.delete(req, res, next);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+});
+
 module.exports = router;
