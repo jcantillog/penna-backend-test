@@ -68,4 +68,26 @@ router.put('/balance', function(req, res, next) {
     }
 });
 
+/*++++++++++++++ LIKES Routes ++++++++++++++*/
+
+/* Increase project likes number */
+router.put('/likes/add', function(req, res, next) {
+    try {
+        projectsServices.like.increaseLikes(req, res, next);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+});
+
+/* Decrease project likes number */
+router.put('/likes/remove', function(req, res, next) {
+    try {
+        projectsServices.like.decreaseLikes(req, res, next);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+});
+
 module.exports = router;

@@ -1,7 +1,7 @@
 var Project = require('../../models/project');
 
 /* UPDATE project balance. */
-updateProjectBalance = async function (req, res, next) {
+updateProjectBalance = function (req, res, next) {
 
     const searchQuery = { _id: req.body._id };
 
