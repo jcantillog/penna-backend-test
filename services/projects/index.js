@@ -1,3 +1,4 @@
 module.exports = {
-    crud: require('./crud')
+    crud: require('./crud'),
+    balance: require('./balance')
 };

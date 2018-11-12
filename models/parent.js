@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+// Model to manage Parent collection, saving parents info.
+
 var schema = new Schema({
     id: {type: String},
     name: {type: String},

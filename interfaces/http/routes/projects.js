@@ -3,6 +3,8 @@ var router = express.Router();
 
 var { projectsServices } = require('../../../services');
 
+/*++++++++++++++ CRUD Routes ++++++++++++++*/
+
 /* CREATE project. */
 router.post('/', function(req, res, next) {
     try {
@@ -33,7 +35,7 @@ router.get('/:parent_id/filter', function(req, res, next) {
     }
 });
 
-/* UPDATE parent */
+/* UPDATE project */
 router.put('/', function(req, res, next) {
     try {
         projectsServices.crud.updateInfo(req, res, next);
@@ -43,10 +45,23 @@ router.put('/', function(req, res, next) {
     }
 });
 
-/* DELETE parent */
+/* DELETE project */
 router.delete('/', function(req, res, next) {
     try {
         projectsServices.crud.delete(req, res, next);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+});
+
+
+/*++++++++++++++ BALANCE Routes ++++++++++++++*/
+
+/* UPDATE project balance */
+router.put('/balance', function(req, res, next) {
+    try {
+        projectsServices.balance.updateBalance(req, res, next);
     } catch (error) {
         console.log(error);
         next(error);
