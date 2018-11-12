@@ -1,12 +1,14 @@
 var Project = require('../../models/project');
 
 /* UPDATE project balance. */
-updateProjectBalance = function (req, res, next) {
+updateProjectBalance = async function (req, res, next) {
 
     const searchQuery = { _id: req.body._id };
 
     const updatedProjectBalance = {
-        balanceAmount: req.body.balanceAmount
+        $inc: {
+            balanceAmount: req.body.balanceAmount
+        }
     };
 
     Project.findOneAndUpdate(searchQuery, updatedProjectBalance, function (err, project) {
@@ -20,7 +22,7 @@ updateProjectBalance = function (req, res, next) {
         if(project){
             res.send({
                 message:    'Project balance successfully updated !',
-                newBalance: project.balanceAmount + req.body.balanceAmount
+                newBalance: req.body.balanceAmount + project.balanceAmount
             });
         } else {
             res.status(200).send({
