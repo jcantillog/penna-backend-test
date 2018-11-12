@@ -28,7 +28,7 @@ createParent = function (req, res, next){
 /* GET all parents. */
 searchAllParents = async function (req, res, next) {
     const allParents = await Parent.find({});
-    res.send(allParents);
+    res.send({message: 'Parents successfully recovered !', parents: allParents});
 };
 
 /* GET parent by id. */

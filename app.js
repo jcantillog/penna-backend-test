@@ -15,8 +15,9 @@ mongoose.connect
 );
 
 // Setting routers
-var indexRouter   = require('./interfaces/http/routes/index');
-var parentsRouter = require('./interfaces/http/routes/parents');
+var indexRouter     = require('./interfaces/http/routes/index');
+var parentsRouter   = require('./interfaces/http/routes/parents');
+var projectsRouter  = require('./interfaces/http/routes/projects');
 
 // Setting express app
 var app = express();
@@ -33,6 +34,7 @@ app.use(cors());
 // Setting endpoints
 app.use('/', indexRouter);
 app.use('/parents', parentsRouter);
+app.use('/projects', projectsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

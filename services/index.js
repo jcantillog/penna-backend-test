@@ -1,3 +1,4 @@
 module.exports = {
-    parentsServices: require('./parents')
+    parentsServices: require('./parents'),
+    projectsServices: require('./projects')
 };
