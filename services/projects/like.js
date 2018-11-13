@@ -1,9 +1,11 @@
 var Project = require('../../models/project');
+var Likes = require('../likes');
 
 /* Increase project likes number. */
-increaseProjectLikes = function (req, res, next) {
+increaseProjectLikes = async function (req, res, next) {
 
-    const searchQuery = { _id: req.body._id };
+    const searchQuery = { _id: req.body.project_id };
+    const like = await Likes.createLike(req, res, next);
 
     const updatedProjectLikes = {
         $inc: {
@@ -16,18 +18,21 @@ increaseProjectLikes = function (req, res, next) {
         if(err)
             res.status(500).json({
                 message:        'An error has occurred: '+err,
-                newLikesNumber: null
+                newLikesNumber: null,
+                lastLike:       null
             });
 
         if(project){
             res.send({
                 message:        'Project likes successfully increased !',
-                newLikesNumber: project.likesNumber + 1
+                newLikesNumber: project.likesNumber + 1,
+                lastLike:       like
             });
         } else {
             res.status(200).send({
                 message:        'Project does not exist !',
-                newLikesNumber: null
+                newLikesNumber: null,
+                lastLike:       null
             });
         }
 
@@ -35,9 +40,10 @@ increaseProjectLikes = function (req, res, next) {
 };
 
 /* Decrease project likes number. */
-decreaseProjectLikes = function (req, res, next) {
+decreaseProjectLikes = async function (req, res, next) {
 
-    const searchQuery = { _id: req.body._id };
+    const searchQuery = { _id: req.body.project_id };
+    const like = await Likes.removeLike(req, res, next);
 
     const updatedProjectLikes = {
         $inc: {
@@ -50,18 +56,21 @@ decreaseProjectLikes = function (req, res, next) {
         if(err)
             res.status(500).json({
                 message:        'An error has occurred: '+err,
-                newLikesNumber: null
+                newLikesNumber: null,
+                lastLike:       null
             });
 
         if(project){
             res.send({
                 message:        'Project likes successfully decreased !',
-                newLikesNumber: project.likesNumber - 1
+                newLikesNumber: project.likesNumber - 1,
+                lastLike:       like
             });
         } else {
             res.status(200).send({
                 message:        'Project does not exist !',
-                newLikesNumber: null
+                newLikesNumber: null,
+                lastLike:       null
             });
         }
 
