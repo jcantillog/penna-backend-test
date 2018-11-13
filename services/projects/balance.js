@@ -1,11 +1,11 @@
 var Project = require('../../models/project');
-var { crud } = require('../transferences');
+var Transferences = require('../transferences');
 
 /* UPDATE project balance. */
 updateProjectBalance = async function (req, res, next) {
 
     const searchQuery = { _id: req.body.project_id };
-    const transference = await crud.create(req, res, next);
+    const transference = await Transferences.createTransference(req, res, next);
 
     const updatedProjectBalance = {
         $inc: {

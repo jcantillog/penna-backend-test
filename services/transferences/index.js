@@ -1,3 +1,6 @@
+var TransferHistory = require('./transference');
+
 module.exports = {
-    crud: require('./crud')
+    createTransference:             TransferHistory.createTransference,
+    searchProjectTransferHistory:   TransferHistory.searchProjectTransferHistory
 };
