@@ -1,13 +1,15 @@
 var Project = require('../../models/project');
+var { crud } = require('../transferences');
 
 /* UPDATE project balance. */
-updateProjectBalance = function (req, res, next) {
+updateProjectBalance = async function (req, res, next) {
 
-    const searchQuery = { _id: req.body._id };
+    const searchQuery = { _id: req.body.project_id };
+    const transference = await crud.create(req, res, next);
 
     const updatedProjectBalance = {
         $inc: {
-            balanceAmount: req.body.balanceAmount
+            balanceAmount: req.body.amount
         }
     };
 
@@ -15,19 +17,22 @@ updateProjectBalance = function (req, res, next) {
 
         if(err)
             res.status(500).json({
-                message:    'An error has occurred: '+err,
-                newBalance: null
+                message:            'An error has occurred: '+err,
+                newBalance:         null,
+                lastTransference:   null
             });
 
         if(project){
             res.send({
-                message:    'Project balance successfully updated !',
-                newBalance: req.body.balanceAmount + project.balanceAmount
+                message:            'Project balance successfully updated !',
+                newBalance:         project.balanceAmount + req.body.amount,
+                lastTransference:   transference
             });
         } else {
             res.status(200).send({
-                message:    'Project does not exist !',
-                newBalance: null
+                message:            'Project does not exist !',
+                newBalance:         null,
+                lastTransference:   null
             });
         }
 

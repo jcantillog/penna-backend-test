@@ -1,26 +1,28 @@
 var Transference = require('../../models/transferences');
 
 /* CREATE transference. */
-createTransference = function (req, res, next){
+createTransference = async function (req, res, next){
+
     var transference = new Transference({
         donorParent_id: req.body.donorParent_id,
         project_id: req.body.project_id,
         amount: req.body.amount
     });
 
-    transference.save(function (err, newTransference) {
-        if(newTransference)
-            res.send({
-                message:        'Transference successfully created !',
-                transference:   newTransference
-            });
+    const newTransference = await transference.save();
 
-        if(err)
-            res.status(500).json({
-                message:        'An error has occurred: '+err,
-                transference:   null
-            });
-    })
+    if(newTransference){
+        return Promise.resolve({
+            message:        'Transference successfully created !',
+            transference:   newTransference
+        });
+    } else {
+        return Promise.resolve({
+            message:        'An error has occurred, please try again.',
+            transference:   null
+        });
+    }
+
 };
 
 /* GET parent transfer. */
